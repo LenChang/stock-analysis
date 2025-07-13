@@ -1,10 +1,10 @@
 # Plot a normal distribution diagram of the 'Close' column
-import matplotlib.pyplot as plt
-from scipy.stats import norm
-import numpy as np
-import yfinance as yf
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+import numpy as np
+import yfinance as yf
 
 # Define the ticker symbol for Micron
 ticker_symbol = "MU"
