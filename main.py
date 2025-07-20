@@ -2,6 +2,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from scipy.stats import norm
+from scipy.stats import anderson
 import matplotlib.pyplot as plt
 import numpy as np
 import yfinance as yf
@@ -65,9 +66,20 @@ print(f"{within_1std}")
 print(
     f"Mean: {mean[ticker_symbol]}, Standard Deviation: {std[ticker_symbol]}, within_1std: {len(within_1std)}, close_prices: {len(close_prices)}"
 )
+
 print(
     f"Percentage of data within one and two standard deviation: {percent_1std}% {percent_2std}%"
 )
+
+# Anderson-Darling test for normality
+ad_result = anderson(close_prices[ticker_symbol], dist="norm")
+print("Anderson-Darling Test Statistic:", ad_result.statistic)
+for cv, sig in zip(ad_result.critical_values, ad_result.significance_level):
+    print(f"Critical Value for {sig}%: {cv}")
+if ad_result.statistic < ad_result.critical_values[2]:
+    print("Result: The data looks normal (fail to reject H0 at 5% level)")
+else:
+    print("Result: The data does not look normal (reject H0 at 5% level)")
 
 
 # Mark one, two, and three standard deviatis)")
