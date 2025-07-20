@@ -1,10 +1,11 @@
 # Plot a normal distribution diagram of the 'Close' column
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from scipy.stats import norm
 from scipy.stats import anderson
+from scipy.stats import norm
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.stats as stats
 import yfinance as yf
 
 # Define the ticker symbol for Micron
@@ -55,8 +56,15 @@ else:
 # Plot normal distribution curve
 min_bin, max_bin = bins[0], bins[-1]
 x = np.linspace(min_bin, max_bin, 100)
+
 plt.plot(x, norm.pdf(x, mean, std), "r-", lw=2, label="Normal Distribution")
 plt.xlabel("Close Price")
 plt.ylabel("Density")
 plt.legend()
+plt.show()
+
+# Q-Q plot for normality
+plt.figure(figsize=(6, 6))
+stats.probplot(close_prices[ticker_symbol], dist="norm", plot=plt)
+plt.title(f"Q-Q Plot of {ticker_symbol} Close Prices")
 plt.show()
