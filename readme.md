@@ -14,3 +14,8 @@ This repository includes a script for analyzing the historical closing prices of
    - Displays a Q-Q plot to visually assess normality.
 
 These analyses help to understand the distribution and statistical properties of the stock's closing prices over the selected period.
+
+## Reference
+
+- [Central Limit Theorem, CLT](https://haosquare.com/normal-distribution-central-limit-theorem-t-test/#%E7%A9%B6%E7%AB%9F%E8%A9%B2%E4%B8%8D%E8%A9%B2%E7%94%A8-t-%E6%AA%A2%E5%AE%9A)
+- [Standard Error](https://haosquare.com/standard-error/)
