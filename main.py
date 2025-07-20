@@ -41,36 +41,6 @@ count, bins, ignored = plt.hist(
     label="Close Price Histogram",
 )
 
-# Plot normal distribution curve
-min_bin, max_bin = bins[0], bins[-1]
-x = np.linspace(min_bin, max_bin, 100)
-plt.plot(x, norm.pdf(x, mean, std), "r-", lw=2, label="Normal Distribution")
-
-
-# Calculate percentage of data within one standard deviation
-within_1std = close_prices[
-    (close_prices[ticker_symbol] >= (mean[ticker_symbol] - std[ticker_symbol]))
-    & (close_prices[ticker_symbol] <= (mean[ticker_symbol] + std[ticker_symbol]))
-]
-percent_1std = len(within_1std) / len(close_prices) * 100
-
-within_2std = close_prices[
-    (close_prices[ticker_symbol] >= (mean[ticker_symbol] - 2 * std[ticker_symbol]))
-    & (close_prices[ticker_symbol] <= (mean[ticker_symbol] + 2 * std[ticker_symbol]))
-]
-percent_2std = len(within_2std) / len(close_prices) * 100
-
-
-print(f"{within_1std}")
-
-print(
-    f"Mean: {mean[ticker_symbol]}, Standard Deviation: {std[ticker_symbol]}, within_1std: {len(within_1std)}, close_prices: {len(close_prices)}"
-)
-
-print(
-    f"Percentage of data within one and two standard deviation: {percent_1std}% {percent_2std}%"
-)
-
 # Anderson-Darling test for normality
 ad_result = anderson(close_prices[ticker_symbol], dist="norm")
 print("Anderson-Darling Test Statistic:", ad_result.statistic)
@@ -82,7 +52,10 @@ else:
     print("Result: The data does not look normal (reject H0 at 5% level)")
 
 
-# Mark one, two, and three standard deviatis)")
+# Plot normal distribution curve
+min_bin, max_bin = bins[0], bins[-1]
+x = np.linspace(min_bin, max_bin, 100)
+plt.plot(x, norm.pdf(x, mean, std), "r-", lw=2, label="Normal Distribution")
 plt.xlabel("Close Price")
 plt.ylabel("Density")
 plt.legend()
